@@ -14,7 +14,7 @@ const users = [
   { id: 10, name: 'User 10'},
   { id: 11, name: 'User 11'},
   { id: 12, name: 'User 12'},
-  { id: 13, name: 'User 13'},
+  { id: 13, name: 'User 13'}
 ]
 
 app.get('/users', (req, res) => {
