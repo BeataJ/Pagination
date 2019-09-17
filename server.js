@@ -20,6 +20,9 @@ const users = [
 app.get('/users', (req, res) => {
   const page = page.query.page;
   const limit = limit.guery.limit;
+
+  const startIndex = (page -1) * limit;
+  const endIndex = page * limit;
   res.json(users);
 })
 
