@@ -1,7 +1,13 @@
 const express = require("express");
 const app = express();
 
-app.get("/users", paginatedResults(users), (req, res) => {
+const mongoose = require('mongoose');
+const User = require('./users');
+
+
+mongoose.connect('mongodb+srv://beata:1234@cluster0-b4yc7.mongodb.net/pagination?retryWrites=true&w=majority')
+
+app.get("/users", paginatedResults(User), (req, res) => {
   res.json(res.paginatedResults);
 });
 
