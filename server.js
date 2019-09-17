@@ -1,8 +1,6 @@
 const express = require("express");
 const app = express();
 
-
-
 app.get("/users", paginatedResults(users), (req, res) => {
   res.json(res.paginatedResults);
 });
