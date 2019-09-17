@@ -23,7 +23,9 @@ app.get('/users', (req, res) => {
 
   const startIndex = (page -1) * limit;
   const endIndex = page * limit;
-  res.json(users);
+
+  const resultUsers = users.slice(startIndex, endIndex);
+  res.json(resultUsers);
 })
 
 app.listen(3000);
