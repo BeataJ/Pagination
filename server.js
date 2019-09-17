@@ -5,7 +5,27 @@ const mongoose = require('mongoose');
 const User = require('./users');
 
 
-mongoose.connect('mongodb+srv://beata:1234@cluster0-b4yc7.mongodb.net/pagination?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://beata:1234@cluster0-b4yc7.mongodb.net/pagination?retryWrites=true&w=majority', { useNewUrlParser: true,  useUnifiedTopology: true})
+const db = mongoose.connection
+db.once('open', async () => {
+  if( await User.countDocuments().exec() > 0 ) return 
+
+  Promise.all([
+    User.create({ name: 'User 1'}),
+    User.create({ name: 'User 2'}),
+    User.create({ name: 'User 3'}),
+    User.create({ name: 'User 4'}),
+    User.create({ name: 'User 5'}),
+    User.create({ name: 'User 6'}),
+    User.create({ name: 'User 7'}),
+    User.create({ name: 'User 8'}),
+    User.create({ name: 'User 9'}),
+    User.create({ name: 'User 10'}),
+    User.create({ name: 'User 11'})
+    
+
+  ]).then(() => console.log('Added Users'))
+})
 
 app.get("/users", paginatedResults(User), (req, res) => {
   res.json(res.paginatedResults);
