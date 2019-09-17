@@ -22,7 +22,7 @@ db.once('open', async () => {
     User.create({ name: 'User 9'}),
     User.create({ name: 'User 10'}),
     User.create({ name: 'User 11'})
-    
+
 
   ]).then(() => console.log('Added Users'))
 })
@@ -32,7 +32,7 @@ app.get("/users", paginatedResults(User), (req, res) => {
 });
 
 function paginatedResults(model) {
-  return (req, res, next) => {
+  return async (req, res, next) => {
     const page = parseInt(req.query.page);
     const limit = parseInt(req.query.limit);
 
@@ -55,10 +55,16 @@ function paginatedResults(model) {
       };
     }
 
-    results.results = model.slice(startIndex, endIndex);
+    // results.results = model.slice(startIndex, endIndex);
 
-    res.paginatedResults = results;
-    next();
+    try {
+      results.results = await model.find().limit(limit).skip(startIndex).exec();
+      res.paginatedResults = results;
+      next();
+    } catch(e) {
+      res.status(500).json({message: e.message })
+    }
+    
   };
 }
 
