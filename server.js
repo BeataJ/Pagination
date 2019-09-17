@@ -18,8 +18,8 @@ const users = [
 ]
 
 app.get('/users', (req, res) => {
-  const page = page.query.page;
-  const limit = limit.guery.limit;
+  const page = req.query.page;
+  const limit = req.query.limit;
 
   const startIndex = (page -1) * limit;
   const endIndex = page * limit;
