@@ -31,6 +31,11 @@ app.get('/users', (req, res) => {
     limit: limit
   }
 
+  results.previous = {
+    page: page - 1,
+    limit: limit
+  }
+
   results.results = users.slice(startIndex, endIndex);
   res.json(results);
 })
